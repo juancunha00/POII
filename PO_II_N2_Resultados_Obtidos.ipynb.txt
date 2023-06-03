@@ -1,0 +1,915 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#**Download da biblioteca pulp para resolução da função**"
+      ],
+      "metadata": {
+        "id": "dJfH7LmaowGB"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 38,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "b3TzQTW2-Zr5",
+        "outputId": "6bcc7036-1a12-4d21-b009-e54d45499fdb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/\n",
+            "Requirement already satisfied: pulp in /usr/local/lib/python3.10/dist-packages (2.7.0)\n"
+          ]
+        }
+      ],
+      "source": [
+        "#Instalação da biblioteca pulp\n",
+        "!pip install pulp"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#**Parametrização das variáveis e restrições:**\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "aHtQd12UoPhr"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Importação da biblioteca**"
+      ],
+      "metadata": {
+        "id": "4DtlQcGOpugs"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pulp as p"
+      ],
+      "metadata": {
+        "id": "z_k8WBGMo_ZS"
+      },
+      "execution_count": 39,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Problema de minimização**"
+      ],
+      "metadata": {
+        "id": "Oqyog24tpw6G"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Lp_prob = p.LpProblem('Problema', p.LpMinimize) "
+      ],
+      "metadata": {
+        "id": "XTsf61tbo_W7"
+      },
+      "execution_count": 40,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##**Criação das variáveis**"
+      ],
+      "metadata": {
+        "id": "3SN0yYl3rMnE"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "QP1a = p.LpVariable(\"QP1a\", lowBound = 0) #Quantidade de pneus do tipo 1 (pneu 275) - agosto\n",
+        "QP1s = p.LpVariable(\"QP1s\", lowBound = 0) #Quantidade de pneus do tipo 1 (pneu 275) - setembro\n",
+        "QP1o = p.LpVariable(\"QP1o\", lowBound = 0) #Quantidade de pneus do tipo 1 (pneu 275) - outubro\n",
+        "QP1n = p.LpVariable(\"QP1n\", lowBound = 0) #Quantidade de pneus do tipo 1 (pneu 275) - novembro\n",
+        "QP1d = p.LpVariable(\"QP1d\", lowBound = 0) #Quantidade de pneus do tipo 1 (pneu 275) - dezembro\n",
+        "QP2a = p.LpVariable(\"QP2a\", lowBound = 0) #Quantidade de pneus do tipo 2 (pneu 295) - agosto\n",
+        "QP2s = p.LpVariable(\"QP2s\", lowBound = 0) #Quantidade de pneus do tipo 2 (pneu 295) - setembro\n",
+        "QP2o = p.LpVariable(\"QP2o\", lowBound = 0) #Quantidade de pneus do tipo 2 (pneu 295) - outubro\n",
+        "QP2n = p.LpVariable(\"QP2n\", lowBound = 0) #Quantidade de pneus do tipo 2 (pneu 295) - novembro\n",
+        "QP2d = p.LpVariable(\"QP2d\", lowBound = 0) #Quantidade de pneus do tipo 2 (pneu 295) - dezembro\n",
+        "QP3a = p.LpVariable(\"QP3a\", lowBound = 0) #Quantidade de pneus do tipo 3 (pneu 900) - agosto\n",
+        "QP3s = p.LpVariable(\"QP3s\", lowBound = 0) #Quantidade de pneus do tipo 3 (pneu 900) - setembro\n",
+        "QP3o = p.LpVariable(\"QP3o\", lowBound = 0) #Quantidade de pneus do tipo 3 (pneu 900) - outubro\n",
+        "QP3n = p.LpVariable(\"QP3n\", lowBound = 0) #Quantidade de pneus do tipo 3 (pneu 900) - novembro\n",
+        "QP3d = p.LpVariable(\"QP3d\", lowBound = 0) #Quantidade de pneus do tipo 3 (pneu 900) - dezembro\n",
+        "QP4a = p.LpVariable(\"QP4a\", lowBound = 0) #Quantidade de pneus do tipo 4 (pneu 1000) - agosto\n",
+        "QP4s = p.LpVariable(\"QP4s\", lowBound = 0) #Quantidade de pneus do tipo 4 (pneu 1000) - setembro\n",
+        "QP4o = p.LpVariable(\"QP4o\", lowBound = 0) #Quantidade de pneus do tipo 4 (pneu 1000) - outubro\n",
+        "QP4n = p.LpVariable(\"QP4n\", lowBound = 0) #Quantidade de pneus do tipo 4 (pneu 1000) - novembro\n",
+        "QP4d = p.LpVariable(\"QP4d\", lowBound = 0) #Quantidade de pneus do tipo 4 (pneu 1000) - dezembro\n",
+        "QRP1a = p.LpVariable(\"QRP1a\", lowBound = 0) #Quantidade de recapagens do pneu 1 (pneu 275) - agosto\n",
+        "QRP1s = p.LpVariable(\"QRP1s\", lowBound = 0) #Quantidade de recapagens do pneu 1 (pneu 275) - setembro\n",
+        "QRP1o = p.LpVariable(\"QRP1o\", lowBound = 0) #Quantidade de recapagens do pneu 1 (pneu 275) - outubro\n",
+        "QRP1n = p.LpVariable(\"QRP1n\", lowBound = 0) #Quantidade de recapagens do pneu 1 (pneu 275) - novembro\n",
+        "QRP1d = p.LpVariable(\"QRP1d\", lowBound = 0) #Quantidade de recapagens do pneu 1 (pneu 275) - dezembro\n",
+        "QRP2a = p.LpVariable(\"QRP2a\", lowBound = 0) #Quantidade de recapagens do pneu 2 (pneu 295) - agosto\n",
+        "QRP2s = p.LpVariable(\"QRP2s\", lowBound = 0) #Quantidade de recapagens do pneu 2 (pneu 295) - setembro\n",
+        "QRP2o = p.LpVariable(\"QRP2o\", lowBound = 0) #Quantidade de recapagens do pneu 2 (pneu 295) - outubro\n",
+        "QRP2n = p.LpVariable(\"QRP2n\", lowBound = 0) #Quantidade de recapagens do pneu 2 (pneu 295) - novembro\n",
+        "QRP2d = p.LpVariable(\"QRP2d\", lowBound = 0) #Quantidade de recapagens do pneu 2 (pneu 295) - dezembro\n",
+        "QO1a = p.LpVariable(\"QO1a\", lowBound = 0) #Quantidade do óleo do tipo 1 (óleo de motor) - agosto\n",
+        "QO1s = p.LpVariable(\"QO1s\", lowBound = 0) #Quantidade do óleo do tipo 1 (óleo de motor) - setembro\n",
+        "QO1o = p.LpVariable(\"QO1o\", lowBound = 0) #Quantidade do óleo do tipo 1 (óleo de motor) - outubro\n",
+        "QO1n = p.LpVariable(\"QO1n\", lowBound = 0) #Quantidade do óleo do tipo 1 (óleo de motor) - novembro\n",
+        "QO1d = p.LpVariable(\"QO1d\", lowBound = 0) #Quantidade do óleo do tipo 1 (óleo de motor) - dezembro\n",
+        "QO2a = p.LpVariable(\"QO2a\", lowBound = 0) #Quantidade do óleo do tipo 2 (óleo XV) - agosto\n",
+        "QO2s = p.LpVariable(\"QO2s\", lowBound = 0) #Quantidade do óleo do tipo 2 (óleo XV) - setembro\n",
+        "QO2o = p.LpVariable(\"QO2o\", lowBound = 0) #Quantidade do óleo do tipo 2 (óleo XV) - outubro\n",
+        "QO2n = p.LpVariable(\"QO2n\", lowBound = 0) #Quantidade do óleo do tipo 2 (óleo XV) - novembro\n",
+        "QO2d = p.LpVariable(\"QO2d\", lowBound = 0) #Quantidade do óleo do tipo 2 (óleo XV) - dezembro\n",
+        "QP1ea = p.LpVariable(\"QP1ea\", lowBound = 0) #Estoque de pneu do tipo 1 (pneu 275) - agosto\n",
+        "QP1es = p.LpVariable(\"QP1es\", lowBound = 0) #Estoque de pneu do tipo 1 (pneu 275) - setembro\n",
+        "QP1eo = p.LpVariable(\"QP1eo\", lowBound = 0) #Estoque de pneu do tipo 1 (pneu 275) - outubro\n",
+        "QP1en = p.LpVariable(\"QP1en\", lowBound = 0) #Estoque de pneu do tipo 1 (pneu 275) - novembro\n",
+        "QP1ed = p.LpVariable(\"QP1ed\", lowBound = 0) #Estoque de pneu do tipo 1 (pneu 275) - dezembro\n",
+        "QP2ea = p.LpVariable(\"QP2ea\", lowBound = 0) #Estoque de pneu do tipo 2 (pneu 295) - agosto\n",
+        "QP2es = p.LpVariable(\"QP2es\", lowBound = 0) #Estoque de pneu do tipo 2 (pneu 295) - setembro\n",
+        "QP2eo = p.LpVariable(\"QP2eo\", lowBound = 0) #Estoque de pneu do tipo 2 (pneu 295) - outubro\n",
+        "QP2en = p.LpVariable(\"QP2en\", lowBound = 0) #Estoque de pneu do tipo 2 (pneu 295) - novembro\n",
+        "QP2ed = p.LpVariable(\"QP2ed\", lowBound = 0) #Estoque de pneu do tipo 2 (pneu 295) - dezembro\n",
+        "QP3ea = p.LpVariable(\"QP3ea\", lowBound = 0) #Estoque de pneu do tipo 3 (pneu 900) - agosto\n",
+        "QP3es = p.LpVariable(\"QP3es\", lowBound = 0) #Estoque de pneu do tipo 3 (pneu 900) - setembro\n",
+        "QP3eo = p.LpVariable(\"QP3eo\", lowBound = 0) #Estoque de pneu do tipo 3 (pneu 900) - outubro\n",
+        "QP3en = p.LpVariable(\"QP3en\", lowBound = 0) #Estoque de pneu do tipo 3 (pneu 900) - novembro\n",
+        "QP3ed = p.LpVariable(\"QP3ed\", lowBound = 0) #Estoque de pneu do tipo 3 (pneu 900) - dezembro\n",
+        "QP4ea = p.LpVariable(\"QP4ea\", lowBound = 0) #Estoque de pneu do tipo 4 (pneu 1000) - agosto\n",
+        "QP4es = p.LpVariable(\"QP4es\", lowBound = 0) #Estoque de pneu do tipo 4 (pneu 1000) - setembro\n",
+        "QP4eo = p.LpVariable(\"QP4eo\", lowBound = 0) #Estoque de pneu do tipo 4 (pneu 1000) - outubro\n",
+        "QP4en = p.LpVariable(\"QP4en\", lowBound = 0) #Estoque de pneu do tipo 4 (pneu 1000) - novembro\n",
+        "QP4ed = p.LpVariable(\"QP4ed\", lowBound = 0) #Estoque de pneu do tipo 4 (pneu 1000) - dezembro\n",
+        "QO1ea = p.LpVariable(\"QO1ea\", lowBound = 0) #Estoque do óleo do tipo 1 (óleo de motor) - agosto\n",
+        "QO1es = p.LpVariable(\"QO1es\", lowBound = 0) #Estoque do óleo do tipo 1 (óleo de motor) - setembro\n",
+        "QO1eo = p.LpVariable(\"QO1eo\", lowBound = 0) #Estoque do óleo do tipo 1 (óleo de motor) - outubro\n",
+        "QO1en = p.LpVariable(\"QO1en\", lowBound = 0) #Estoque do óleo do tipo 1 (óleo de motor) - novembro\n",
+        "QO1ed = p.LpVariable(\"QO1ed\", lowBound = 0) #Estoque do óleo do tipo 1 (óleo de motor) - dezembro\n",
+        "QO2ea = p.LpVariable(\"QO2ea\", lowBound = 0) #Estoque do óleo do tipo 2 (óleo XV) - agosto\n",
+        "QO2es = p.LpVariable(\"QO2es\", lowBound = 0) #Estoque do óleo do tipo 2 (óleo XV) - setembro\n",
+        "QO2eo = p.LpVariable(\"QO2eo\", lowBound = 0) #Estoque do óleo do tipo 2 (óleo XV) - outubro\n",
+        "QO2en = p.LpVariable(\"QO2en\", lowBound = 0) #Estoque do óleo do tipo 2 (óleo XV) - novembro\n",
+        "QO2ed = p.LpVariable(\"QO2ed\", lowBound = 0) #Estoque do óleo do tipo 2 (óleo XV) - dezembro\n",
+        "CMa = p.LpVariable(\"CMa\", lowBound = 0)\n",
+        "CMs = p.LpVariable(\"CMs\", lowBound = 0)\n",
+        "CMo = p.LpVariable(\"CMo\", lowBound = 0)\n",
+        "CMn = p.LpVariable(\"CMn\", lowBound = 0)\n",
+        "CMd = p.LpVariable(\"CMd\", lowBound = 0)"
+      ],
+      "metadata": {
+        "id": "m3q5QxZLo_Uo"
+      },
+      "execution_count": 41,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "SFa = 8.30 #Saldo Financeiro no final do mês - agosto\n",
+        "SFs = 1554.11 #Saldo Financeiro no final do mês - setembro\n",
+        "SFo = 4118.26 #Saldo Financeiro no final do mês - outubro\n",
+        "SFn = 3626.56 #Saldo Financeiro no final do mês - novembro\n",
+        "SFd = 2705.94 #Saldo Financeiro no final do mês - dezembro"
+      ],
+      "metadata": {
+        "id": "sxO1hhi50H7L"
+      },
+      "execution_count": 42,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##**Restrições**"
+      ],
+      "metadata": {
+        "id": "FST4PKdkGPX0"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###**Restrições de custo:**"
+      ],
+      "metadata": {
+        "id": "1b4KiK0iA0hE"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "CMa = Custo com manutenção Preventiva em Agosto\n",
+        "\n",
+        "CMs = Custo com manutenção Preventiva em Setembro\n",
+        "\n",
+        "CMo = Custo com manutenção Preventiva em Outubro\n",
+        "\n",
+        "CMn = Custo com manutenção Preventiva em Novembro\n",
+        "\n",
+        "CMd = Custo com manutenção Preventiva em Dezembro\n"
+      ],
+      "metadata": {
+        "id": "0y8haibgAsD3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "CMasoma =  1479.33 * QP1a + 1575.60 * QP2a + 917.50 * QP3a + 1120.01 * QP4a + 428.92 * QRP1a + 1018.34 * QRP2a + 275.3 * QO1a + 268.45 * QO2a + 5.33 * QP1ea + 5.67 * QP2ea + 3.30 * QP3ea + 4.03 * QP4ea + 0.99 * QO1ea + 0.97 * QO2ea"
+      ],
+      "metadata": {
+        "id": "1Okywc6NBuQO"
+      },
+      "execution_count": 43,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "CMssoma =  1479.33 * QP1s + 1575.60 * QP2s + 917.50 * QP3s + 1120.01 * QP4s + 428.92 * QRP1s + 1018.34 * QRP2s + 275.3 * QO1s + 268.45 * QO2s + 5.33 * QP1es + 5.67 * QP2es + 3.30 * QP3es + 4.03 * QP4es + 0.99 * QO1es + 0.97 * QO2es"
+      ],
+      "metadata": {
+        "id": "GtDOR10yCwjM"
+      },
+      "execution_count": 44,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "CMosoma =  1479.33 * QP1o + 1575.60 * QP2o + 917.50 * QP3o + 1120.01 * QP4o + 428.92 * QRP1o + 1018.34 * QRP2o + 275.3 * QO1o + 268.45 * QO2o + 5.33 * QP1eo + 5.67 * QP2eo + 3.30 * QP3eo + 4.03 * QP4eo + 0.99 * QO1eo + 0.97 * QO2eo"
+      ],
+      "metadata": {
+        "id": "1VS8sjLKC2L5"
+      },
+      "execution_count": 45,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "CMnsoma =  1479.33 * QP1n + 1575.60 * QP2n + 917.50 * QP3n + 1120.01 * QP4n + 428.92 * QRP1n + 1018.34 * QRP2n + 275.3 * QO1n + 268.45 * QO2n + 5.33 * QP1en + 5.67 * QP2en + 3.30 * QP3en + 4.03 * QP4en + 0.99 * QO1en + 0.97 * QO2en"
+      ],
+      "metadata": {
+        "id": "H0YXaN7-C4yT"
+      },
+      "execution_count": 46,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "CMdsoma =  1479.33 * QP1d + 1575.60 * QP2d + 917.50 * QP3d + 1120.01 * QP4d + 428.92 * QRP1d + 1018.34 * QRP2d + 275.3 * QO1d + 268.45 * QO2d + 5.33 * QP1ed + 5.67 * QP2ed + 3.30 * QP3ed + 4.03 * QP4ed + 0.99 * QO1ed + 0.97 * QO2ed"
+      ],
+      "metadata": {
+        "id": "H01y7nIoC62w"
+      },
+      "execution_count": 47,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###**Restrições de continuidade de estoque:**"
+      ],
+      "metadata": {
+        "id": "0wW__--NHxIi"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "[...] estoque no final de julho foi considerado zero. "
+      ],
+      "metadata": {
+        "id": "ywtHQbefGQAk"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "QPe1j = 0\n",
+        "QPe2j = 0\n",
+        "QPe3j = 0\n",
+        "QPe4j = 0\n",
+        "QO1j = 0\n",
+        "QO2j = 0"
+      ],
+      "metadata": {
+        "id": "gOzyKNy_GTdi"
+      },
+      "execution_count": 48,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###**Restrições de continuidade de verba:**"
+      ],
+      "metadata": {
+        "id": "b2SelapID9pO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "SFj = Saldo financeiro no final de julho\n",
+        "\n",
+        "SFa = Saldo financeiro no final de agosto\n",
+        "\n",
+        "SFs = Saldo financeiro no final de setembro\n",
+        "\n",
+        "SFo = Saldo financeiro no final de outubro\n",
+        "\n",
+        "SFn = Saldo financeiro no final de novembro\n",
+        "\n",
+        "SFd = Saldo financeiro no final de dezembro"
+      ],
+      "metadata": {
+        "id": "CkSxXsryEnMm"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "[...] o saldo financeiro no final de julho fornecido pela empresa foi de R$ 500,00.\n"
+      ],
+      "metadata": {
+        "id": "zPGQ0K1xGyG3"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "SFj = 500.0"
+      ],
+      "metadata": {
+        "id": "fqE38_StED9G"
+      },
+      "execution_count": 49,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### **Restrições de quantidade máxima de itens e serviços**"
+      ],
+      "metadata": {
+        "id": "3Al0bZNQG4Sb"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "QP1a + QP1ea <= 2\n",
+        "\n",
+        "QP2a + QP2ea <= 1\n",
+        "\n",
+        "QP3a + QP3ea <= 1\n",
+        "\n",
+        "QP4a + QP4ea <= 1\n",
+        "\n",
+        "QO1a + QO1ea <= 1\n",
+        "\n",
+        "QO2a + QO2ea <= 1\n",
+        "\n",
+        "QR1a <= 3\n",
+        "\n",
+        "QR2a <= 1"
+      ],
+      "metadata": {
+        "id": "MamrQovKHAFc"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###**Restrição de não negatividade e inteiros**"
+      ],
+      "metadata": {
+        "id": "RSorzuHvHK0C"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#**Execução das regressões**"
+      ],
+      "metadata": {
+        "id": "z_erQviyIGqJ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##**Função Objetivo**"
+      ],
+      "metadata": {
+        "id": "EUODeRR9yqzi"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "MIN Z= 1479,33QP1a + 1479,33QP1s + 1479,33QP1o + 1479,33QP1n + 1479,33QP1d +\n",
+        "\n",
+        "+1575,60QP2a + 1575,60QP2s + 1575,60QP2o + 1575,60QP2n + 1575,60QP2d +\n",
+        "\n",
+        "+917,50QP3a + 917,50QP3s + 917,50QP3o + 917,50QP3n + 917,50QP3d +\n",
+        "\n",
+        "+1120,01QP4a+ 1120,01QP4s + 1120,01QP4o + 1120,01QP4n + 1120,01QP4d+\n",
+        "\n",
+        "+1428,92QRP1a+1428,92QRP1s+1428,92QRP1o+1428,92QRP1n+1428,92QRP1d+\n",
+        "\n",
+        "+1018,34QRP2a+1018,34QRP2s+1018,34QRP2o+1018,34QRP2n+1018,34QRP2d+\n",
+        "\n",
+        "+275,30QO1a + 275,30QO1s + 75,30QO1o + 275,30QO1n +275,30QO1d +\n",
+        "\n",
+        "+268,45QO2a + 268,45QO2s + 268,45QO2o + 268,45QO2n +268,45QO2d +\n",
+        "\n",
+        "+5,33QP1ea + 5,33QP1es + 5,33QP1eo + 5,33QP1en +5,33QP1ed +\n",
+        "\n",
+        "+5,67QP2ea + 5,67QP2es + 5,67QP2eo + 5,67QP2en +5,67QP2ed +\n",
+        "\n",
+        "+3,30QP3ea + 3,30QP3es + 3,30QP3eo + 3,30QP3en +3,30QP3ed +\n",
+        "\n",
+        "+4,03QP4ea + 4,03QP4es + 4,03QP4eo + 4,03QP4en +4,03QP4ed +\n",
+        "\n",
+        "+0,99QO1ea + 0,99QO1es + 0,99QO1eo +0,99QO1en +0,99QO1ed +\n",
+        "\n",
+        "+0,97QO2ea + 0,97QO2es + 0,97QO2eo +0,97QO2en + 0,97QO2ed +\n",
+        "\n",
+        "+SFa + SFs + SFo + SFn + SFd"
+      ],
+      "metadata": {
+        "id": "qtsj3Rih4mpE"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Lp_prob += 1479.33 * QP1a + 1479.33 * QP1s + 1479.33 * QP1o + 1479.33 * QP1n + 1479.33 * QP1d + 1575.60 * QP2a + 1575.60 * QP2s + 1575.60 * QP2o + 1575.60 * QP2n + 1575.60 * QP2d + 917.50 * QP3a + 917.50 * QP3s + 917.50 * QP3o + 917.50 * QP3n + 917.50 * QP3d + 1120.01 * QP4a + 1120.01 * QP4s + 1120.01 * QP4o + 1120.01 * QP4n + 1120.01 * QP4d + 1428.92 * QRP1a + 1428.92 * QRP1s + 1428.92 * QRP1o + 1428.92 * QRP1n + 1428.92 * QRP1d + 1018.34 * QRP2a + 1018.34 * QRP2s + 1018.34 * QRP2o + 1018.34 * QRP2n + 1018.34 * QRP2d + 275.30 * QO1a + 275.30 * QO1s + 275.30 * QO1o + 275.30 * QO1n + 275.30 * QO1d + 268.45 * QO2a + 268.45 * QO2s + 268.45 * QO2o + 268.45 * QO2n + 268.45 * QO2d + 5.33 * QP1ea + 5.33 * QP1es + 5.33 * QP1eo + 5.33 * QP1en + 5.33 * QP1ed + 5.67 * QP2ea + 5.67 * QP2es + 5.67 * QP2eo + 5.67 * QP2en + 5.67 * QP2ed + 3.30 * QP3ea + 3.30 * QP3es + 3.30 * QP3eo + 3.30 * QP3en + 3.30 * QP3ed + 4.03 * QP4ea + 4.03 * QP4es + 4.03 * QP4eo + 4.03 * QP4en + 4.03 * QP4ed + 0.99 * QO1ea + 0.99 * QO1es + 0.99 * QO1eo + 0.99 * QO1en + 0.99 * QO1ed + 0.97 * QO2ea + 0.97 * QO2es + 0.97 * QO2eo + 0.97 * QO2en + 0.97 * QO2ed + SFa + SFs + SFo + SFn + SFd"
+      ],
+      "metadata": {
+        "id": "qumn8h55o_SO"
+      },
+      "execution_count": 50,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##**Restrições**"
+      ],
+      "metadata": {
+        "id": "92SdnC7U47Df"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Lp_prob += CMa == CMasoma\n",
+        "Lp_prob += CMs == CMssoma\n",
+        "Lp_prob += CMo == CMosoma\n",
+        "Lp_prob += CMn == CMnsoma\n",
+        "Lp_prob += CMd == CMdsoma\n",
+        "\n",
+        "Lp_prob += SFj + 8500 ==  CMa + SFa\n",
+        "Lp_prob += SFa + 8500 == CMs + SFs\n",
+        "Lp_prob += SFs + 8500 == CMo + SFo\n",
+        "Lp_prob += SFo + 8500 == CMn + SFn\n",
+        "Lp_prob += SFn + 8500 == CMd + SFd\n",
+        "\n",
+        "Lp_prob += QP1a + QP1ea <= 2\n",
+        "Lp_prob += QP2a + QP2ea <= 1\n",
+        "Lp_prob += QP3a + QP3ea <= 1\n",
+        "Lp_prob += QP4a + QP4ea <= 1\n",
+        "Lp_prob += QO1a + QO1ea <= 1\n",
+        "Lp_prob += QO2a + QO2ea <= 1\n",
+        "Lp_prob += QRP1a <= 3\n",
+        "Lp_prob += QRP2a <= 1"
+      ],
+      "metadata": {
+        "id": "baynjF_uo_Ns"
+      },
+      "execution_count": 51,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(Lp_prob)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "s8toDFRho_LW",
+        "outputId": "efa2084e-a132-4fc5-9b51-baa7cf548a6a"
+      },
+      "execution_count": 52,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Problema:\n",
+            "MINIMIZE\n",
+            "275.3*QO1a + 275.3*QO1d + 0.99*QO1ea + 0.99*QO1ed + 0.99*QO1en + 0.99*QO1eo + 0.99*QO1es + 275.3*QO1n + 275.3*QO1o + 275.3*QO1s + 268.45*QO2a + 268.45*QO2d + 0.97*QO2ea + 0.97*QO2ed + 0.97*QO2en + 0.97*QO2eo + 0.97*QO2es + 268.45*QO2n + 268.45*QO2o + 268.45*QO2s + 1479.33*QP1a + 1479.33*QP1d + 5.33*QP1ea + 5.33*QP1ed + 5.33*QP1en + 5.33*QP1eo + 5.33*QP1es + 1479.33*QP1n + 1479.33*QP1o + 1479.33*QP1s + 1575.6*QP2a + 1575.6*QP2d + 5.67*QP2ea + 5.67*QP2ed + 5.67*QP2en + 5.67*QP2eo + 5.67*QP2es + 1575.6*QP2n + 1575.6*QP2o + 1575.6*QP2s + 917.5*QP3a + 917.5*QP3d + 3.3*QP3ea + 3.3*QP3ed + 3.3*QP3en + 3.3*QP3eo + 3.3*QP3es + 917.5*QP3n + 917.5*QP3o + 917.5*QP3s + 1120.01*QP4a + 1120.01*QP4d + 4.03*QP4ea + 4.03*QP4ed + 4.03*QP4en + 4.03*QP4eo + 4.03*QP4es + 1120.01*QP4n + 1120.01*QP4o + 1120.01*QP4s + 1428.92*QRP1a + 1428.92*QRP1d + 1428.92*QRP1n + 1428.92*QRP1o + 1428.92*QRP1s + 1018.34*QRP2a + 1018.34*QRP2d + 1018.34*QRP2n + 1018.34*QRP2o + 1018.34*QRP2s + 12013.17\n",
+            "SUBJECT TO\n",
+            "_C1: CMa - 275.3 QO1a - 0.99 QO1ea - 268.45 QO2a - 0.97 QO2ea - 1479.33 QP1a\n",
+            " - 5.33 QP1ea - 1575.6 QP2a - 5.67 QP2ea - 917.5 QP3a - 3.3 QP3ea\n",
+            " - 1120.01 QP4a - 4.03 QP4ea - 428.92 QRP1a - 1018.34 QRP2a = 0\n",
+            "\n",
+            "_C2: CMs - 0.99 QO1es - 275.3 QO1s - 0.97 QO2es - 268.45 QO2s - 5.33 QP1es\n",
+            " - 1479.33 QP1s - 5.67 QP2es - 1575.6 QP2s - 3.3 QP3es - 917.5 QP3s\n",
+            " - 4.03 QP4es - 1120.01 QP4s - 428.92 QRP1s - 1018.34 QRP2s = 0\n",
+            "\n",
+            "_C3: CMo - 0.99 QO1eo - 275.3 QO1o - 0.97 QO2eo - 268.45 QO2o - 5.33 QP1eo\n",
+            " - 1479.33 QP1o - 5.67 QP2eo - 1575.6 QP2o - 3.3 QP3eo - 917.5 QP3o\n",
+            " - 4.03 QP4eo - 1120.01 QP4o - 428.92 QRP1o - 1018.34 QRP2o = 0\n",
+            "\n",
+            "_C4: CMn - 0.99 QO1en - 275.3 QO1n - 0.97 QO2en - 268.45 QO2n - 5.33 QP1en\n",
+            " - 1479.33 QP1n - 5.67 QP2en - 1575.6 QP2n - 3.3 QP3en - 917.5 QP3n\n",
+            " - 4.03 QP4en - 1120.01 QP4n - 428.92 QRP1n - 1018.34 QRP2n = 0\n",
+            "\n",
+            "_C5: CMd - 275.3 QO1d - 0.99 QO1ed - 268.45 QO2d - 0.97 QO2ed - 1479.33 QP1d\n",
+            " - 5.33 QP1ed - 1575.6 QP2d - 5.67 QP2ed - 917.5 QP3d - 3.3 QP3ed\n",
+            " - 1120.01 QP4d - 4.03 QP4ed - 428.92 QRP1d - 1018.34 QRP2d = 0\n",
+            "\n",
+            "_C6: CMa = 8991.7\n",
+            "\n",
+            "_C7: CMs = 6954.19\n",
+            "\n",
+            "_C8: CMo = 5935.85\n",
+            "\n",
+            "_C9: CMn = 8991.7\n",
+            "\n",
+            "_C10: CMd = 9420.62\n",
+            "\n",
+            "_C11: QP1a + QP1ea <= 2\n",
+            "\n",
+            "_C12: QP2a + QP2ea <= 1\n",
+            "\n",
+            "_C13: QP3a + QP3ea <= 1\n",
+            "\n",
+            "_C14: QP4a + QP4ea <= 1\n",
+            "\n",
+            "_C15: QO1a + QO1ea <= 1\n",
+            "\n",
+            "_C16: QO2a + QO2ea <= 1\n",
+            "\n",
+            "_C17: QRP1a <= 3\n",
+            "\n",
+            "_C18: QRP2a <= 1\n",
+            "\n",
+            "VARIABLES\n",
+            "CMa Continuous\n",
+            "CMd Continuous\n",
+            "CMn Continuous\n",
+            "CMo Continuous\n",
+            "CMs Continuous\n",
+            "QO1a Continuous\n",
+            "QO1d Continuous\n",
+            "QO1ea Continuous\n",
+            "QO1ed Continuous\n",
+            "QO1en Continuous\n",
+            "QO1eo Continuous\n",
+            "QO1es Continuous\n",
+            "QO1n Continuous\n",
+            "QO1o Continuous\n",
+            "QO1s Continuous\n",
+            "QO2a Continuous\n",
+            "QO2d Continuous\n",
+            "QO2ea Continuous\n",
+            "QO2ed Continuous\n",
+            "QO2en Continuous\n",
+            "QO2eo Continuous\n",
+            "QO2es Continuous\n",
+            "QO2n Continuous\n",
+            "QO2o Continuous\n",
+            "QO2s Continuous\n",
+            "QP1a Continuous\n",
+            "QP1d Continuous\n",
+            "QP1ea Continuous\n",
+            "QP1ed Continuous\n",
+            "QP1en Continuous\n",
+            "QP1eo Continuous\n",
+            "QP1es Continuous\n",
+            "QP1n Continuous\n",
+            "QP1o Continuous\n",
+            "QP1s Continuous\n",
+            "QP2a Continuous\n",
+            "QP2d Continuous\n",
+            "QP2ea Continuous\n",
+            "QP2ed Continuous\n",
+            "QP2en Continuous\n",
+            "QP2eo Continuous\n",
+            "QP2es Continuous\n",
+            "QP2n Continuous\n",
+            "QP2o Continuous\n",
+            "QP2s Continuous\n",
+            "QP3a Continuous\n",
+            "QP3d Continuous\n",
+            "QP3ea Continuous\n",
+            "QP3ed Continuous\n",
+            "QP3en Continuous\n",
+            "QP3eo Continuous\n",
+            "QP3es Continuous\n",
+            "QP3n Continuous\n",
+            "QP3o Continuous\n",
+            "QP3s Continuous\n",
+            "QP4a Continuous\n",
+            "QP4d Continuous\n",
+            "QP4ea Continuous\n",
+            "QP4ed Continuous\n",
+            "QP4en Continuous\n",
+            "QP4eo Continuous\n",
+            "QP4es Continuous\n",
+            "QP4n Continuous\n",
+            "QP4o Continuous\n",
+            "QP4s Continuous\n",
+            "QRP1a Continuous\n",
+            "QRP1d Continuous\n",
+            "QRP1n Continuous\n",
+            "QRP1o Continuous\n",
+            "QRP1s Continuous\n",
+            "QRP2a Continuous\n",
+            "QRP2d Continuous\n",
+            "QRP2n Continuous\n",
+            "QRP2o Continuous\n",
+            "QRP2s Continuous\n",
+            "\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "status = Lp_prob.solve()\n",
+        "print(p.LpStatus[status])"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "8_CuS_Y9o_Iu",
+        "outputId": "6dfe22f8-c3b1-4590-dcc1-a0de341c6287"
+      },
+      "execution_count": 53,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Optimal\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#**Resultados**"
+      ],
+      "metadata": {
+        "id": "099RV7m7Obid"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Resultados referentes a tabela 03 - Resultado do Modelo**"
+      ],
+      "metadata": {
+        "id": "kKcMVHyDONWg"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QP1a),\" | \", p.value(QP1s),\" | \", p.value(QP1o),\" | \", p.value(QP1n),\" | \", p.value(QP1d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "OhgDEPvhNG6_",
+        "outputId": "712f7884-562a-4c6a-ff6c-fe66c7e6f4c6"
+      },
+      "execution_count": 59,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.0  |  0.0  |  0.0  |  0.0  |  0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QP2a),\" | \", p.value(QP2s),\" | \", p.value(QP2o),\" | \", p.value(QP2n),\" | \", p.value(QP2d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "HjD94iGLNsiD",
+        "outputId": "88720e5e-2304-4b8c-bc60-86d2b223d1b1"
+      },
+      "execution_count": 60,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1.0  |  0.0  |  3.7673585  |  0.0  |  0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QP3a),\" | \", p.value(QP3s),\" | \", p.value(QP3o),\" | \", p.value(QP3n),\" | \", p.value(QP3d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "aKFCYBW6N5zq",
+        "outputId": "aa0b19b0-daa9-40b9-cdf9-fcdbafc4f250"
+      },
+      "execution_count": 61,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1.0  |  0.0  |  0.0  |  0.0  |  0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QP4a),\" | \", p.value(QP4s),\" | \", p.value(QP4o),\" | \", p.value(QP4n),\" | \", p.value(QP4d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "LVy3chJJN9Ge",
+        "outputId": "5407fda0-8083-4f6f-ab32-3fe53a18a00d"
+      },
+      "execution_count": 62,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1.0  |  0.0  |  0.0  |  0.0  |  0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QRP1a),\" | \", p.value(QRP1s),\" | \", p.value(QRP1o),\" | \", p.value(QRP1n),\" | \", p.value(QRP1d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "i5sJbHBePaZE",
+        "outputId": "74d7afd3-ddbe-4e02-a008-d3919dbc19d7"
+      },
+      "execution_count": 63,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "2.0  |  0.0  |  0.0  |  0.0  |  0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QRP2a),\" | \", p.value(QRP2s),\" | \", p.value(QRP2o),\" | \", p.value(QRP2n),\" | \", p.value(QRP2d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "4BrvzkXwPl1b",
+        "outputId": "bc217269-1f94-4aa6-a46b-68982fd66d5f"
+      },
+      "execution_count": 64,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1.0  |  0.0  |  0.0  |  0.0  |  0.0\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QO1a),\" | \", p.value(QO1s),\" | \", p.value(QO1o),\" | \", p.value(QO1n),\" | \", p.value(QO1d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "qFrr71GZP_2w",
+        "outputId": "f5c8e9a5-ddd0-4d82-e73f-f09b926e00b8"
+      },
+      "execution_count": 65,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1.0  |  0.0  |  0.0  |  0.0  |  34.21947\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(p.value(QO2a),\" | \", p.value(QO2s),\" | \", p.value(QO2o),\" | \", p.value(QO2n),\" | \", p.value(QO2d))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 0
+        },
+        "id": "MlXBy2S7QJwT",
+        "outputId": "a5b956a5-cb1f-4062-b2a8-24229b8b8ba4"
+      },
+      "execution_count": 66,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "1.0  |  0.0  |  0.0  |  0.0  |  0.0\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
